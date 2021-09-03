@@ -1,0 +1,51 @@
+{% extends 'baseSite.html' %}
+{% block site %}
+    <div id="navbar">
+        {% if user.is_authenticated %}
+            <a href="/home">Home</a>
+            <a class="active" href="/history">History</a>
+
+            <div class="topnav-right">
+                <a href="/profile">{{ user }}</a>
+                <a href="/logout">Logout</a>
+            </div>
+        {% else %}
+            <meta http-equiv="REFRESH" content="0;url='/home'">
+        {% endif %}
+    </div>
+    <div class="contained">
+      <div class="detail">
+          <div class="detail_result">
+              <table style="width:100%">
+                <tr>
+                    <th>File</th>
+                    <th>Name</th>
+                    <th style="width: 100px">Size</th>
+                    <th style="width: 200px">Created</th>
+                    <th style="width: 200px">Accessed</th>
+                    <th style="width: 200px">Modified</th>
+                </tr>
+                {% for image,name,size,created,accessed,modified in image_detail %}
+                  <tr>
+                    <td>
+                        <img alt="" style="max-width: 100%; max-height: 100%" src="{{ image }}">
+                    </td>
+                    <td>{{ name }}</td>
+                    <td>{{ size }}</td>
+                    <td>{{ created }}</td>
+                    <td>{{ accessed }}</td>
+                    <td>{{ modified }}</td>
+                  </tr>
+                {% endfor %}
+              </table>
+          </div>
+      </div>
+    </div>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+          <div class="form-input">
+            <input type="submit" value="Clear" />
+          </div>
+    </form>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="{% static '/css/style.css' %}" />
+  <link rel="stylesheet" href="{% static '/css/login.css' %}" />
+  <title>MAS Detector</title>
+  <link rel="icon" href="{% static '/img/logo.png' %}" type="image/icon type">
+</head>
+<body>
+<div class="contained hero-section">
+  <div>
+    <h1>Malware Analysis System</h1>
+    <p class="definition">
+      Malware Analysis System (MAS) is automated tool to detect suspicious behaviour in files.
+    </p>
+  </div>
+  <img src="{% static '/img/logo.png' %}" alt="" />
+</div>
+
+{% block site %}
+
+{% endblock %}
+
+<footer>
+  <p>&copy; 2021. PIEAS University All Rights Reserved</p>
+</footer>
+<script>
+        window.onscroll = function() {myFunction()};
+        var navbar = document.getElementById("navbar");
+        var sticky = navbar.offsetTop;
+        function myFunction() {
+            if (window.pageYOffset >= sticky) {
+                navbar.classList.add("sticky")
+            } else {
+                navbar.classList.remove("sticky");
+            }
+        }
+</script>
+</body>
+</html>

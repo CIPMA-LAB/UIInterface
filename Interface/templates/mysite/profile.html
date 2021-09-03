@@ -1,0 +1,41 @@
+{% extends 'baseSite.html' %}
+{% load widget_tweaks %}
+{% block site %}
+    <div id="navbar">
+        <a href="/home">Home</a>
+        <a href="/history">History</a>
+        <div class="topnav-right">
+            <a class="active" href="/profile">{{ user }}</a>
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+        <div hidden>
+            {{ form.as_p }}
+        </div>
+        <div class="container">
+            <h2 style="color: #4fc1e9; font-size: 3rem; margin: 25px;">User Information</h2>
+            <label><b>Last Login</b></label>
+            {% render_field form.last_login readonly="readonly" %}
+            <label><b>Username</b></label>
+            {% render_field form.username readonly="readonly" %}
+            <label><b>First Name</b></label>
+            {{ form.first_name }}
+            <label><b>Last Name</b></label>
+            {{ form.last_name }}
+            <label><b>Email</b></label>
+            {{ form.email }}
+            <label><b>Date Joined</b></label>
+            {% render_field form.date_joined readonly="readonly" %}
+            <input type="submit" value="Update">
+            <input type="button" value="Change Password" onclick="location.href='/profile/password';">
+        </div>
+        <div class="error">
+            {% if form.errors %}
+                <h2>Errors</h2>
+                <div>{{ form.errors }}</div>
+            {% endif %}
+        </div>
+    </form>
+{% endblock %}

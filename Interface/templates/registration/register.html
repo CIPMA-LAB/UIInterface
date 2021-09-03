@@ -1,0 +1,52 @@
+{% extends 'baseSite.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static '/css/login.css' %}" />
+    <title>Register</title>
+</head>
+<body>
+    {% block site %}
+        <div id="navbar">
+            {% if user.is_authenticated %}
+                <meta http-equiv="REFRESH" content="0;url='/home'">
+            {% else %}
+                <a href="/home">Home</a>
+                <div class="topnav-right">
+                    <a href="/login">Login</a>
+                    <a class="active" href="/register">Register</a>
+                </div>
+            {% endif %}
+        </div>
+        <form method="POST" action="{% url 'register' %}">
+            {% csrf_token %}
+            <div class="imgcontainer">
+                <img src="{% static '/img/admin.png' %}" alt="Avatar" class="avatar">
+            </div>
+
+            <div class="container">
+                <label><b>Username</b></label>
+                {{ form.username }}
+                <label><b>First Name</b></label>
+                {{ form.first_name }}
+                <label><b>Last Name</b></label>
+                {{ form.last_name }}
+                <label><b>Email</b></label>
+                {{ form.email }}
+                <label><b>Password</b></label>
+                {{ form.password1 }}
+                <label><b>Re-Enter Password</b></label>
+                {{ form.password2 }}
+                <input type="submit" value="Register">
+            </div>
+            <div class="error">
+                {% if form.errors %}
+                    <h2>Errors</h2>
+                    <div>{{ form.errors }}</div>
+                {% endif %}
+            </div>
+        </form>
+    {% endblock %}
+</body>
+</html>

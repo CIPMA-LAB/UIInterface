@@ -1,0 +1,45 @@
+{% extends 'baseSite.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static '/css/login.css' %}" />
+    <title>Login</title>
+</head>
+<body>
+    {% block site %}
+        <div id="navbar">
+            {% if user.is_authenticated %}
+                <meta http-equiv="REFRESH" content="0;url='/home'">
+            {% else %}
+                <a href="/home">Home</a>
+                <div class="topnav-right">
+                    <a class="active" href="/login">Login</a>
+                    <a href="/register">Register</a>
+                </div>
+            {% endif %}
+        </div>
+        <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        <div class="imgcontainer">
+            <img src="{% static '/img/admin.png' %}" alt="Avatar" class="avatar">
+        </div>
+
+        <div class="container">
+            <label><b>Username</b></label>
+            {{ form.username }}
+            <label><b>Password</b></label>
+            {{ form.password }}
+            <input type="submit" value="Login">
+            <input type="hidden" value="{{ next }}" name="next">
+        </div>
+        <div class="error">
+            {% if form.errors %}
+                <h2>Errors</h2>
+                <div>{{ form.errors }}</div>
+            {% endif %}
+        </div>
+        </form>
+    {% endblock %}
+</body>
+</html>
